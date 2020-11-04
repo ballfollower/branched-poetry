@@ -16,9 +16,9 @@
     </head>
     <body>
         <nav>
-            <a href="/instruction">instruction</a>
-            <a href="/index">creation</a>
-            <a href="/login">login</a>
+            <a href="{{ url_for('instruction') }}">instruction</a>
+            <a href="{{ url_for('index') }}">creation</a>
+            <a href="{{ url_for('login') }}">login</a>
         </nav>
         <hr>
         {% with messages = get_flashed_messages() %}
