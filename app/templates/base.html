@@ -2,13 +2,34 @@
     <head>
         <meta charset="utf-8">
       
-        <title>Branched Poetry</title>
+        {% if title %}
+        <title>{{ title }} - branched poetry</title>
+        {% else %}
+        <title>branched poetry</title>
+        {% endif %}
+
+        <style>
+            nav a {
+                margin: 0 10px;
+            }
+        </style>
     </head>
     <body>
         <nav>
             <a href="/instruction">instruction</a>
             <a href="/index">creation</a>
+            <a href="/login">login</a>
         </nav>
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
         {% block content %}{% endblock %}
     </body>
 </html>
