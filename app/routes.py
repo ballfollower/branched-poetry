@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, request
 from app import app
 from app.forms import LoginForm
 from .tree import Tree
@@ -33,3 +33,13 @@ def login():
         return redirect(url_for('index'))
 
     return render_template('login.html', title='Sign In', form=form)
+
+@app.route('/ajax/programme', methods=['POST'])
+def retrieve_programme():
+    if request.method == 'POST':
+        # shows_list = Shows.query.all()
+    #     result = []
+    #     for i in shows_list:
+    #         result.append(i.serialize(['id', 'date', 'title']))
+        return "Response to Ajax here!"
+        # pass
