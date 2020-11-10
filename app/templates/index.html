@@ -1,12 +1,30 @@
 {% extends 'base.html' %}
 
+{% block style %}
+  <style>
+    
+  </style>
+{% endblock %}
+
 {% block content %}
-  <div id="poem_so_far">
-    [Poem so far]
-  </div>
-  <div>
-    {% for firstVerse in verses.children %}
-    {{ firstVerse.data }}<br>
-    {% endfor %}
-  </div>
+  <table>
+    <tr>
+      <td id="poem_so_far">[Poem so far]</td>
+      <td>
+        {% for firstVerse in verses.children %}
+        {{ firstVerse.data }}<br>
+        {% endfor %}    
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input type="text">
+        <button>Send</button>          
+      </td>
+      <td></td>
+    </tr>
+  </table>
+  <script>
+
+  </script>
 {% endblock %}
