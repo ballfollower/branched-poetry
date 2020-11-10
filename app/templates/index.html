@@ -23,8 +23,8 @@
     <tr>
       <td id="poem_so_far">[Poem so far]</td>
       <td>
-        {% for firstVerse in verses.children %}
-        {{ firstVerse.data }}<br>
+        {% for firstVerse in verses %}
+        {{ firstVerse.text }}<br>
         {% endfor %}    
       </td>
     </tr>
