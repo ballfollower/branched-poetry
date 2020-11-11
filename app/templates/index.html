@@ -2,7 +2,18 @@
 
 {% block style %}
   <style>
+    table {
+      width: 100%;
+      max-width: 600px;
+      margin: 15px;
+    }
     
+    #poemSoFar {
+      background-color: #ffb;
+      text-align: center;
+
+      height: 15em;
+    }
   </style>
 {% endblock %}
 
@@ -11,9 +22,9 @@
 
   <script>
     function postVerse(){
-      $.post("http://127.0.0.1:5000/ajax/programme", {year: '2017', semester: 1}, function(result){
+      $.post("http://127.0.0.1:5000/ajax/verseProvider", {year: '2017', semester: 1}, function(result){
         console.log(result);
-    });
+      });
     }
   </script>
 {% endblock %}
@@ -21,22 +32,56 @@
 {% block content %}
   <table>
     <tr>
-      <td id="poem_so_far">[Poem so far]</td>
+      <td id="poemSoFar"></td>
       <td>
+        <input id="searchInput" 
+          type="text" 
+          placeholder="Next Verse..." >
+        <br>
         {% for firstVerse in verses %}
-        {{ firstVerse.text }}<br>
+        <div class="verseToChoose">
+          {{ firstVerse.text }}
+        </div>
         {% endfor %}    
       </td>
     </tr>
     <tr>
       <td>
-        <input type="text">
-        <button onclick="postVerse()">Send</button>          
+        <button disabled>
+          Copy to Clipboard
+        </button>
+        
+        <button disabled>
+          Start Over
+        </button>          
       </td>
-      <td></td>
+      <td><button onclick="postVerse()">[button for debugging]</button></td>
     </tr>
   </table>
   <script>
+    $("#searchInput").on('keyup', function(e){
+      if (e.key === 'Enter' || e.keyCode === 13) {
+        if($("#poemSoFar").length){
+          $("#poemSoFar").append("<br>");
+        }
+        $("#poemSoFar").append($(this).val());
+        //alert($(this).val());
+      }
 
+      var input = $("#searchInput");
+      var filter = input.val().toUpperCase();
+
+      var versesToChoose = $(".verseToChoose");
+
+      for (var i = 0; i < versesToChoose.length; i++) {
+        var txtValue = versesToChoose[i].textContent || versesToChoose[i].innerText;
+
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          versesToChoose[i].style.display = "";
+        } else {
+          versesToChoose[i].style.display = "none";
+        }
+      }
+    });
   </script>
 {% endblock %}

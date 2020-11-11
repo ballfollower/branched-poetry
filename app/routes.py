@@ -25,12 +25,12 @@ def index():
 def instruction():
     return render_template('instruction.html')
 
-@app.route('/ajax/programme', methods=['POST'])
-def retrieve_programme():
+@app.route('/ajax/verseProvider', methods=['POST'])
+def provideVerses():
     if request.method == 'POST':
-        verseToReturn = Verse.query.get(4)
+        # verseToReturn = Verse.query.get(4)
     #     result = []
     #     for i in shows_list:
     #         result.append(i.serialize(['id', 'date', 'title']))
-        return verseToReturn.text
+        return "ajax response here!"#verseToReturn.text
         # pass
