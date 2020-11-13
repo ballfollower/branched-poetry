@@ -1,10 +1,9 @@
 $(function () {
   $("#searchInput").on('keyup', function (e) {
     if (e.key === 'Enter' || e.keyCode === 13) {
-      if ($("#poemSoFar").length) {
-        $("#poemSoFar").append("<br>");
-      }
-      $("#poemSoFar").append($(this).val());
+      appendToPoem($(this).val());
+      $(this).val("");
+      // TODO: handle sending the verse to the server
       //alert($(this).val());
     }
 
@@ -27,6 +26,31 @@ $(function () {
   acquireInitialVerses();
 });
 
+function appendToPoem(text){
+  if ($("#poemSoFar").length) {
+    $("#poemSoFar").append("<br>");
+  }
+  $("#poemSoFar").append(text);
+}
+
+function fillVerseDivs(ajaxResponse){
+  const verses = ajaxResponse;
+
+  $(".verseToChoose").remove();
+
+  for(var i = 0; i<verses.ids.length; i++){
+    var verseDiv = $("<div class='verseToChoose'></div>");
+    verseDiv.append(verses.texts[i]);
+    verseDiv.data("id", verses.ids[i]);
+    verseDiv.on('click', function () {
+      // alert("");
+      postExistingVerse($(this).data('id'));
+      appendToPoem($(this).html());
+    });
+    $("#verseAdditionPanel").append(verseDiv);
+  }
+}
+
 function acquireInitialVerses(){
   $.ajax({
     url: "http://127.0.0.1:5000/ajax/initialVersesProvider",
@@ -35,19 +59,7 @@ function acquireInitialVerses(){
     dataType: "json",
     type: 'POST',
     success: function (response) {
-      const verses = response;
-
-      for(var i = 0; i<verses.ids.length; i++){
-        var verseDiv = $("<div class='verseToChoose'></div>");
-        verseDiv.append(verses.texts[i]);
-        verseDiv.data("id", verses.ids[i]);
-        verseDiv.on('click', function () {
-          // alert("");
-          // postVerse($(this).data('verseId'));
-          // alert($(this).data("id"));
-        });
-        $("#verseAdditionPanel").append(verseDiv);
-      }
+      fillVerseDivs(response)
     },
     error: function (error) {
       console.log(error);
@@ -55,26 +67,18 @@ function acquireInitialVerses(){
   });
 }
 
-function postVerse(id) {
-  // let verseToPost = {
-  //   'id': id
-  // }
-
+function postExistingVerse(id) {
   $.ajax({
-    url: "http://127.0.0.1:5000/ajax/verseProvider",
+    url: "http://127.0.0.1:5000/ajax/existingVerseHandler",
     contentType: "application/json;charset=utf-8",
     data: JSON.stringify({ 'id': id }),
     dataType: "json",
     type: 'POST',
     success: function (response) {
-      console.log(response);
+      fillVerseDivs(response);
     },
     error: function (error) {
       console.log(error);
     }
   });
-
-  // $.post("http://127.0.0.1:5000/ajax/verseProvider", { id: id }, function (result) {
-  //   console.log(result);
-  // });
 }

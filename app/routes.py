@@ -38,7 +38,6 @@ def provideInitialVerses():
 
 @app.route('/ajax/existingVerseHandler', methods=['POST'])
 def processExistingVerse():
-    # verseToReturn = Verse.query.get(4)
     receivedVerseId = request.json['id']
 
     nextVerses = Verse.query.filter(Verse.parentId == receivedVerseId).all()
@@ -49,3 +48,4 @@ def processExistingVerse():
         "ids":[verse.id for verse in nextVerses],
         "texts":[verse.text for verse in nextVerses]
     })
+    # return "{}"
