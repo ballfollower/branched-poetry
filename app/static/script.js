@@ -1,21 +1,21 @@
 $(function () {
   $("#searchInput").on('keyup', function (e) {
-    if (e.key === 'Enter' || e.keyCode === 13) {
+    if ($(this).val().length && (e.key === 'Enter' || e.keyCode === 13)) {
       appendToPoem($(this).val());
       $(this).val("");
       // TODO: handle sending the verse to the server
-      //alert($(this).val());
+      
     }
 
     var input = $("#searchInput");
-    var filter = input.val().toUpperCase();
+    var filter = input.val().trim();
 
     var versesToChoose = $(".verseToChoose");
 
     for (var i = 0; i < versesToChoose.length; i++) {
       var txtValue = versesToChoose[i].textContent || versesToChoose[i].innerText;
 
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      if (txtValue.indexOf(filter) > -1) {
         versesToChoose[i].style.display = "";
       } else {
         versesToChoose[i].style.display = "none";
