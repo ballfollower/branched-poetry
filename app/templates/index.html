@@ -31,16 +31,11 @@
   <table>
     <tr>
       <td id="poemSoFar"></td>
-      <td>
+      <td id="verseAdditionPanel">
         <input id="searchInput" 
           type="text" 
           placeholder="Next Verse..." >
-        <br>
-        {% for firstVerse in verses %}
-        <div class="verseToChoose">
-          {{ firstVerse.text }}
-        </div>
-        {% endfor %}    
+        <br>   
       </td>
     </tr>
     <tr>
