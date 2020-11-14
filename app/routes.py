@@ -32,7 +32,7 @@ def jsonifyVerses(verses):
 
 @app.route('/ajax/initialVersesProvider', methods=['POST'])
 def provideInitialVerses():
-    firstVerses = Verse.query.filter(Verse.parent == None).all()
+    firstVerses = Verse.query.filter(Verse.parentId == 0).all()
 
     return jsonifyVerses(firstVerses)
 
@@ -57,9 +57,6 @@ def processNewVerse():
     db.session.add(newVerse)
     db.session.flush()
 
-    # TODO: Check if the following is necessary
-    db.session.refresh(newVerse)
-    
     idAssigned = newVerse.id
 
     db.session.commit()

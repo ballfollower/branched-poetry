@@ -3,7 +3,7 @@ $(function () {
     var inputTrimmed = $(this).val().trim();
 
     if (inputTrimmed.length && (e.key === 'Enter' || e.keyCode === 13)) {
-      advanceVerse(inputTrimmed);
+      advanceVerseLocally(inputTrimmed);
       
       if($(this).data('identicalVerseId') != null){
         postExistingVerse($(this).data('identicalVerseId'));
@@ -58,8 +58,7 @@ $(function () {
   acquireInitialVerses();
 });
 
-// FIXME: Change name of the function to more appropriate
-function advanceVerse(text){
+function advanceVerseLocally(text){
   if ($("#poemSoFar").length) {
     $("#poemSoFar").append("<br>");
   }
@@ -79,7 +78,7 @@ function fillVerseDivs(ajaxResponse){
     verseDiv.data("id", verses.ids[i]);
     verseDiv.on('click', function () {
       postExistingVerse($(this).data('id'));
-      advanceVerse($(this).html());
+      advanceVerseLocally($(this).html());
     });
     $("#verseAdditionPanel").append(verseDiv);
   }
@@ -100,7 +99,7 @@ function acquireInitialVerses(){
     }
   });
 
-  $("#poemSoFar").data("lastVerseId", null);
+  $("#poemSoFar").data("lastVerseId", 0);
 }
 
 function postExistingVerse(id) {
