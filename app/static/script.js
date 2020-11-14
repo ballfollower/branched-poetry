@@ -1,36 +1,57 @@
 $(function () {
   $("#searchInput").on('keyup', function (e) {
-    if ($(this).val().length && (e.key === 'Enter' || e.keyCode === 13)) {
-      appendToPoem($(this).val());
-      $(this).val("");
-      // TODO: handle sending the verse to the server
+    if ($(this).val().trim().length && (e.key === 'Enter' || e.keyCode === 13)) {
+      advanceVerse($(this).val().trim());
       
+      if($(this).data('identicalVerseId') != null){
+        postExistingVerse($(this).data('identicalVerseId'));
+      }
+      else{// TODO: handle this case (i.e. adding verse to database)
+
+      }
     }
 
     var input = $("#searchInput");
     var filter = input.val().trim();
 
-    var versesToChoose = $(".verseToChoose");
+    $(this).data('identicalVerseId', null);
 
-    for (var i = 0; i < versesToChoose.length; i++) {
-      var txtValue = versesToChoose[i].textContent || versesToChoose[i].innerText;
+    mainThis = $(this);// to preserve this value
 
-      if (txtValue.indexOf(filter) > -1) {
-        versesToChoose[i].style.display = "";
+    // alert(mainThis.val());
+
+    $(".verseToChoose").each(function(i, v) {
+      var txtValue = $(this).html();
+
+      var matchedPosition = txtValue.indexOf(filter);
+      
+      if (matchedPosition < 0) {
+        v.style.display = "none";
       } else {
-        versesToChoose[i].style.display = "none";
+        v.style.display = "";
+
+        if (matchedPosition == 0) {// exact match possible
+          if(txtValue.length == filter.length){// this check should eliminate majority of cases
+            if(txtValue == filter){// final check
+              mainThis.data("identicalVerseId", $(this).data("id"));        
+            }
+          }
+        }
       }
-    }
+    });
   });
 
   acquireInitialVerses();
 });
 
-function appendToPoem(text){
+// FIXME: Change name of the function to more appropriate
+function advanceVerse(text){
   if ($("#poemSoFar").length) {
     $("#poemSoFar").append("<br>");
   }
   $("#poemSoFar").append(text);
+
+  $("#searchInput").val("");
 }
 
 function fillVerseDivs(ajaxResponse){
@@ -43,9 +64,8 @@ function fillVerseDivs(ajaxResponse){
     verseDiv.append(verses.texts[i]);
     verseDiv.data("id", verses.ids[i]);
     verseDiv.on('click', function () {
-      // alert("");
       postExistingVerse($(this).data('id'));
-      appendToPoem($(this).html());
+      advanceVerse($(this).html());
     });
     $("#verseAdditionPanel").append(verseDiv);
   }
