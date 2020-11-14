@@ -3,18 +3,17 @@ from app import db
 class Verse(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     
-    # TODO: Make this not-null
-    text = db.Column(db.String(200))
+    text = db.Column(db.String(200), nullable=False)
     
-    # TODO: Make this not-null
-    parentId = db.Column(db.Integer, db.ForeignKey('verse.id'))
+    parentId = db.Column(db.Integer, db.ForeignKey('verse.id'), nullable=False)
     
-    parent = db.relationship('Verse', backref='descendants',
-        remote_side=[id])
+    # parent = db.relationship('Verse', backref='descendants',
+    #     remote_side=[id])
 
     # TODO: Add this constraint (requires migration)
-    # __table_args__ = (UniqueConstraint('customer_id', 'location_code', name='_customer_location_uc'),
-    #     )
+    __table_args__ = (db.UniqueConstraint('text', 'parentId', name='_text_parent_uc'),
+        )
 
     def __repr__(self):
-        return '<Verse: {}>'.format(self.text)  
+        return 'Verse {}({}): {}'.format(
+            self.id, self.parentId, self.text)  
