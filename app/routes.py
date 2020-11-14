@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request, \
     jsonify
-from app import app
+from app import app, db
 from app.tree import Tree
 from app.models import Verse
 
@@ -41,11 +41,21 @@ def processExistingVerse():
     receivedVerseId = request.json['id']
 
     nextVerses = Verse.query.filter(Verse.parentId == receivedVerseId).all()
-
-    # print(nextVerses)
-        
+  
     return jsonify({
         "ids":[verse.id for verse in nextVerses],
         "texts":[verse.text for verse in nextVerses]
     })
-    # return "{}"
+
+@app.route('/ajax/newVerseHandler', methods=['POST'])
+def processNewVerse():
+    parentId = request.json['parentId']
+    text = request.json['text']
+
+    db.session.add(Verse(parentId=parentId, text=text))
+    db.session.commit()
+    
+    # FIXME: return id assigned to newly-inserted verse,
+    # which will become a new value for
+    # $("#poemSoFar").data("lastVerseId")
+    return "{}"

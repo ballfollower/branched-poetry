@@ -1,18 +1,31 @@
 $(function () {
   $("#searchInput").on('keyup', function (e) {
-    if ($(this).val().trim().length && (e.key === 'Enter' || e.keyCode === 13)) {
-      advanceVerse($(this).val().trim());
+    var inputTrimmed = $(this).val().trim();
+
+    if (inputTrimmed.length && (e.key === 'Enter' || e.keyCode === 13)) {
+      advanceVerse(inputTrimmed);
       
       if($(this).data('identicalVerseId') != null){
         postExistingVerse($(this).data('identicalVerseId'));
       }
       else{// TODO: handle this case (i.e. adding verse to database)
-
+        $.ajax({
+          url: "http://127.0.0.1:5000/ajax/newVerseHandler",
+          contentType: "application/json;charset=utf-8",
+          data: JSON.stringify({ 
+            'parentId': $("#poemSoFar").data("lastVerseId"), 
+            'text': inputTrimmed
+          }),
+          dataType: "json",
+          type: 'POST',
+          success: function (response) {
+          },
+          error: function (error) {
+            console.log(error);
+          }
+        });
       }
     }
-
-    var input = $("#searchInput");
-    var filter = input.val().trim();
 
     $(this).data('identicalVerseId', null);
 
@@ -23,7 +36,7 @@ $(function () {
     $(".verseToChoose").each(function(i, v) {
       var txtValue = $(this).html();
 
-      var matchedPosition = txtValue.indexOf(filter);
+      var matchedPosition = txtValue.indexOf(inputTrimmed);
       
       if (matchedPosition < 0) {
         v.style.display = "none";
@@ -31,8 +44,8 @@ $(function () {
         v.style.display = "";
 
         if (matchedPosition == 0) {// exact match possible
-          if(txtValue.length == filter.length){// this check should eliminate majority of cases
-            if(txtValue == filter){// final check
+          if(txtValue.length == inputTrimmed.length){// this check should eliminate majority of cases
+            if(txtValue == inputTrimmed){// final check
               mainThis.data("identicalVerseId", $(this).data("id"));        
             }
           }
@@ -85,9 +98,13 @@ function acquireInitialVerses(){
       console.log(error);
     }
   });
+
+  $("#poemSoFar").data("lastVerseId", null);
 }
 
 function postExistingVerse(id) {
+  $("#poemSoFar").data("lastVerseId", id);
+
   $.ajax({
     url: "http://127.0.0.1:5000/ajax/existingVerseHandler",
     contentType: "application/json;charset=utf-8",
