@@ -8,7 +8,7 @@ $(function () {
       if($(this).data('identicalVerseId') != null){
         postExistingVerse($(this).data('identicalVerseId'));
       }
-      else{// TODO: handle this case (i.e. adding verse to database)
+      else{
         $.ajax({
           url: "http://127.0.0.1:5000/ajax/newVerseHandler",
           contentType: "application/json;charset=utf-8",
@@ -19,6 +19,7 @@ $(function () {
           dataType: "json",
           type: 'POST',
           success: function (response) {
+            $("#poemSoFar").data("lastVerseId", response.id);
           },
           error: function (error) {
             console.log(error);
@@ -65,12 +66,12 @@ function advanceVerse(text){
   $("#poemSoFar").append(text);
 
   $("#searchInput").val("");
+
+  $(".verseToChoose").remove();
 }
 
 function fillVerseDivs(ajaxResponse){
   const verses = ajaxResponse;
-
-  $(".verseToChoose").remove();
 
   for(var i = 0; i<verses.ids.length; i++){
     var verseDiv = $("<div class='verseToChoose'></div>");

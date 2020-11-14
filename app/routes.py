@@ -52,10 +52,16 @@ def processNewVerse():
     parentId = request.json['parentId']
     text = request.json['text']
 
-    db.session.add(Verse(parentId=parentId, text=text))
+    newVerse = Verse(parentId=parentId, text=text)
+
+    db.session.add(newVerse)
+    db.session.flush()
+
+    # TODO: Check if the following is necessary
+    db.session.refresh(newVerse)
+    
+    idAssigned = newVerse.id
+
     db.session.commit()
     
-    # FIXME: return id assigned to newly-inserted verse,
-    # which will become a new value for
-    # $("#poemSoFar").data("lastVerseId")
-    return "{}"
+    return jsonify({'id': idAssigned})
