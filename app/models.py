@@ -10,7 +10,6 @@ class Verse(db.Model):
     # parent = db.relationship('Verse', backref='descendants',
     #     remote_side=[id])
 
-    # TODO: Add this constraint (requires migration)
     __table_args__ = (db.UniqueConstraint('text', 'parentId', name='_text_parent_uc'),
         )
 

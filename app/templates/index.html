@@ -1,22 +1,46 @@
 {% extends 'base.html' %}
 
 <!-- TODO:
-      1. Add scrolling to poem panel
-      2. Dock verse addition input to top of its container
+      - Dock verse addition input to top of its container
     -->
 {% block style %}
   <style>
     table {
       width: 100%;
-      max-width: 600px;
-      margin: 15px;
+      
+      border: 1px solid red;
     }
     
+    td {
+      padding: 5px;
+      width: 50%;
+      border: 1px solid green;
+    }
+
+    .creationDiv {
+      border: 1px solid blue;
+      overflow: auto;
+    }
+
     #poemSoFar {
       background-color: #ffb;
       text-align: center;
+      vertical-align: middle;
+      height: 12em;
+      max-height: 12em;
+      padding: 1em;
+    }
 
-      height: 15em;
+    #verseAdditionDiv {
+      height: 100%;
+    }
+
+    #searchInput {
+      width: 100%;
+    }
+
+    .verseToChoose{
+      border: 1px solid red;
     }
 
     .verseToChoose:hover {
@@ -33,13 +57,15 @@
 
 {% block content %}
   <table>
-    <tr>
-      <td id="poemSoFar"></td>
-      <td id="verseAdditionPanel">
-        <input id="searchInput" 
-          type="text" 
-          placeholder="Next Verse..." >
-        <br>   
+    <tr id="creationRow">
+      <td><div id="poemSoFar" class="creationDiv"></div></td>
+      <td>
+        <div id="verseAdditionDiv" class="creationDiv">
+          <input id="searchInput" 
+            type="text" 
+            placeholder="Next Verse..." >
+          <br>
+        </div>   
       </td>
     </tr>
     <tr>
@@ -53,7 +79,7 @@
         </button>          
       </td>
       <td>
-        <a href="data:text/plain;charset=utf-8,lalala" download="tmp.txt"><button onclick="postVerse()">[button for debugging]</button></a>
+        <!-- <a href="data:text/plain;charset=utf-8,lalala" download="tmp.txt"><button onclick="postVerse()">[button for debugging]</button></a> -->
       </td>
     </tr>
   </table>

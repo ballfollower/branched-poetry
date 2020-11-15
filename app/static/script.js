@@ -107,7 +107,7 @@ function fillVerseDivs(ajaxResponse){
       postExistingVerse($(this).data('id'));
       advanceVerseLocally($(this).html());
     });
-    $("#verseAdditionPanel").append(verseDiv);
+    $("#verseAdditionDiv").append(verseDiv);
   }
 }
 
