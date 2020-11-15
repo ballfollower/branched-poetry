@@ -55,6 +55,14 @@ $(function () {
     });
   });
 
+  $('#startOverButton').on('click', function(){
+    $("#poemSoFar").html("");
+    $("#searchInput").val("");
+
+    $(".verseToChoose").remove();
+    acquireInitialVerses();
+  });
+
   acquireInitialVerses();
 });
 
