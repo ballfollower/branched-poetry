@@ -63,11 +63,30 @@ $(function () {
     acquireInitialVerses();
   });
 
+  $('#downloadButton').on('click', function(){
+    downloadText("poem.txt", $('#poemSoFar').html().replace(/\<br\\?>/g, "\n"));
+  });
+
   acquireInitialVerses();
 });
 
+// Adapted from: https://ourcodeworld.com/articles/read/189/how-to-create-a-file-and-generate-a-download-with-javascript-in-the-browser-without-a-server
+function downloadText(filename, text) {
+  var element = $('<a></a>');
+  
+  element.attr('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  element.attr('download', filename);
+  element.css('display', 'none');
+  
+  $('body').append(element);
+
+  element[0].click();
+
+  element.remove();
+}
+
 function advanceVerseLocally(text){
-  if ($("#poemSoFar").length) {
+  if ($("#poemSoFar").text().length) {
     $("#poemSoFar").append("<br>");
   }
   $("#poemSoFar").append(text);
