@@ -9,14 +9,33 @@
         {% endif %}
 
         <style>
+            :root {
+                --veryDark: hsl(27, 100%, 10%);
+                --fairlyDark: hsl(27, 100%, 20%);
+                --veryBright: hsl(27, 100%, 90%);
+                --fairlyBright: hsl(27, 100%, 80%);
+
+                --canvaBorderRadius: 8px;
+                --panelBorderRadius: 8px;
+
+                --panelBorderThickness: 1px;
+            }
+
             body {
-                background-color: #ffb;
+                background-color: var(--fairlyBright);
                 padding: 15px;
             }
 
+            #canva {
+                
+            }
+
             #titleDiv {
-                background-color: #222;
-                color: white;
+                border-radius: var(--canvaBorderRadius)
+                    var(--canvaBorderRadius) 0 0;
+
+                background-color: var(--veryDark);
+                color: var(--veryBright);
                 padding: 10px;
             }
 
@@ -25,13 +44,13 @@
             }
 
             nav {
-                background-color: #ddd;
+                background-color: var(--fairlyDark);
             }
 
             nav a {
                 margin: 0 10px;
                 text-decoration: none;
-                color: black;
+                color: var(--veryBright);
             }
 
             nav a:hover {
@@ -44,24 +63,26 @@
         {% block script %}{% endblock %}
     </head>
     <body>
-        <div id="titleDiv">
-            <h1>
-                Branched Poetry
-            </h1>
+        <div id="canva">
+            <div id="titleDiv">
+                <h1>
+                    Branched Poetry
+                </h1>
+            </div>
+            <nav>
+                <a href="{{ url_for('instruction') }}">instruction</a>
+                <a href="{{ url_for('index') }}">creation</a>
+            </nav>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+            {% block content %}{% endblock %}
         </div>
-        <nav>
-            <a href="{{ url_for('instruction') }}">instruction</a>
-            <a href="{{ url_for('index') }}">creation</a>
-        </nav>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul>
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
-        {% block content %}{% endblock %}
     </body>
 </html>

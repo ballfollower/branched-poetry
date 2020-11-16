@@ -3,17 +3,18 @@
 {% block style %}
   <style>
     table {
+      border-radius: 0 0 var(--canvaBorderRadius)
+        var(--canvaBorderRadius);
+
       width: 100%;
       
-      background-color: white;
-
-      border: 1px solid red;
+      background-color: var(--veryBright);
+      color: var(--veryDark);
     }
     
     td {
       padding: 5px;
       width: 50%;
-      border: 1px solid green;
     }
 
     .panelTitle {
@@ -25,18 +26,14 @@
       height: 30px;
     }
 
-    #middleDiv {
-      //max-height: auto;
-    }
-
     .creationDiv {
-      border: 1px solid blue;
-      
       overflow: auto;
     }
 
     #poemSoFar {
-      background-color: #ffb;
+      border: 1px solid var(--veryDark);
+      border-radius: var(--panelBorderRadius);
+
       text-align: center;
       vertical-align: middle;
       
@@ -47,8 +44,13 @@
     }
 
     #verseAdditionDiv {
-      max-height: 176px;
-      min-height: 176px;
+      border: 1px solid var(--veryDark);
+      border-radius: var(--panelBorderRadius);
+
+      max-height: 173px;
+      min-height: 173px;
+
+      padding: 4px;
     }
 
     #searchInput {
@@ -56,11 +58,20 @@
     }
 
     .verseToChoose{
-      border: 1px solid red;
     }
 
     .verseToChoose:hover {
       color: maroon;
+    }
+
+    .centered {
+      text-align: center;
+    }
+
+    .buttonSpacer {
+      width:5px;
+      height:auto;
+      display:inline-block;
     }
   </style>
 {% endblock %}
@@ -94,11 +105,13 @@
       </td>
     </tr>
     <tr>
-      <td>
+      <td class="centered">
         <button id="downloadButton">
           Download
         </button>
         
+        <div class="buttonSpacer"></div>
+
         <button id="startOverButton">
           Start Over
         </button>          
