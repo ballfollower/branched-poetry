@@ -10,11 +10,32 @@
 
         <style>
             body {
+                background-color: #ffb;
                 padding: 15px;
+            }
+
+            #titleDiv {
+                background-color: #222;
+                color: white;
+                padding: 10px;
+            }
+
+            h1 {
+                margin: -3px 0;
+            }
+
+            nav {
+                background-color: #ddd;
             }
 
             nav a {
                 margin: 0 10px;
+                text-decoration: none;
+                color: black;
+            }
+
+            nav a:hover {
+                color: maroon;
             }
         </style>
         
@@ -23,11 +44,15 @@
         {% block script %}{% endblock %}
     </head>
     <body>
+        <div id="titleDiv">
+            <h1>
+                Branched Poetry
+            </h1>
+        </div>
         <nav>
             <a href="{{ url_for('instruction') }}">instruction</a>
             <a href="{{ url_for('index') }}">creation</a>
         </nav>
-        <hr>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
         <ul>
