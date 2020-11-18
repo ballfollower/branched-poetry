@@ -1,3 +1,5 @@
+import os
+
 class Config(object):
     SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
         username="ballfollower",
