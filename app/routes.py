@@ -32,7 +32,7 @@ def jsonifyVerses(verses):
 
 @app.route('/ajax/initialVersesProvider', methods=['POST'])
 def provideInitialVerses():
-    firstVerses = Verse.query.filter(Verse.parentId == 0).all()
+    firstVerses = Verse.query.filter(Verse.parentId == None).all()
 
     return jsonifyVerses(firstVerses)
 
@@ -41,7 +41,7 @@ def processExistingVerse():
     receivedVerseId = request.json['id']
 
     nextVerses = Verse.query.filter(Verse.parentId == receivedVerseId).all()
-  
+
     return jsonify({
         "ids":[verse.id for verse in nextVerses],
         "texts":[verse.text for verse in nextVerses]
@@ -60,5 +60,5 @@ def processNewVerse():
     idAssigned = newVerse.id
 
     db.session.commit()
-    
+
     return jsonify({'id': idAssigned})

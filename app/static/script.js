@@ -126,7 +126,7 @@ function acquireInitialVerses(){
     }
   });
 
-  $("#poemSoFar").data("lastVerseId", 0);
+  $("#poemSoFar").data("lastVerseId", null);
 }
 
 function postExistingVerse(id) {
