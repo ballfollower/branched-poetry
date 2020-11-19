@@ -7,11 +7,11 @@
         var(--canvaBorderRadius);
 
       width: 100%;
-      
+
       background-color: var(--veryBright);
-      color: var(--veryDark);
+      color: black;
     }
-    
+
     td {
       padding: 5px;
       width: 50%;
@@ -27,6 +27,8 @@
     }
 
     .creationDiv {
+      color: var(--veryDark);
+
       overflow: auto;
     }
 
@@ -36,10 +38,10 @@
 
       text-align: center;
       vertical-align: middle;
-      
+
       max-height: 226px;
       height: 226px;
-      
+
       padding: 1em;
     }
 
@@ -91,9 +93,9 @@
     <tr id="creationRow">
       <td rowspan="3"><div id="poemSoFar" class="creationDiv"></div></td>
       <td id="inputDiv">
-        <input id="searchInput" 
-            type="text" 
-            placeholder="Type to Create/Filter..." >   
+        <input id="searchInput"
+            type="text"
+            placeholder="Type to Create/Filter..." >
       </td>
     </tr>
     <tr>
@@ -109,12 +111,12 @@
         <button id="downloadButton">
           Download
         </button>
-        
+
         <div class="buttonSpacer"></div>
 
         <button id="startOverButton">
           Start Over
-        </button>          
+        </button>
       </td>
       <td>
         <!-- <a href="data:text/plain;charset=utf-8,lalala" download="tmp.txt"><button onclick="postVerse()">[button for debugging]</button></a> -->
