@@ -24,6 +24,10 @@ def index():
 def instruction():
     return render_template('instruction.html')
 
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
 def jsonifyVerses(verses):
     return jsonify({
         "ids":[verse.id for verse in verses],
