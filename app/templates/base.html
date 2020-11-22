@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-      
+
         {% if title %}
         <title>{{ title }} - branched poetry</title>
         {% else %}
@@ -10,10 +10,10 @@
 
         <style>
             :root {
-                --veryDark: hsl(27, 100%, 10%);
-                --fairlyDark: hsl(27, 100%, 20%);
-                --veryBright: hsl(27, 100%, 90%);
-                --fairlyBright: hsl(27, 100%, 80%);
+                --veryDark: hsl(0, 81%, 15%);
+                --fairlyDark: hsl(0, 81%, 25%);
+                --fairlyBright: hsl(60, 100%, 80%);
+                --veryBright: hsl(60, 53%, 95%);
 
                 --canvaBorderRadius: 8px;
                 --panelBorderRadius: 8px;
@@ -22,12 +22,12 @@
             }
 
             body {
-                background-color: var(--fairlyBright);
+                background-color: hsl(24, 34%, 88%);
                 padding: 15px;
             }
 
             #canva {
-                
+
             }
 
             #titleDiv {
@@ -35,7 +35,7 @@
                     var(--canvaBorderRadius) 0 0;
 
                 background-color: var(--veryDark);
-                color: var(--veryBright);
+                color: white;
                 padding: 10px;
             }
 
@@ -50,14 +50,14 @@
             nav a {
                 margin: 0 10px;
                 text-decoration: none;
-                color: var(--veryBright);
+                color: white;
             }
 
             nav a:hover {
                 color: maroon;
             }
         </style>
-        
+
         {% block style %}{% endblock %}
 
         {% block script %}{% endblock %}

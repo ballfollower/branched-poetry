@@ -4,16 +4,16 @@ $(function () {
 
     if (inputTrimmed.length && (e.key === 'Enter' || e.keyCode === 13)) {
       advanceVerseLocally(inputTrimmed);
-      
+
       if($(this).data('identicalVerseId') != null){
         postExistingVerse($(this).data('identicalVerseId'));
       }
       else{
         $.ajax({
-          url: "http://127.0.0.1:5000/ajax/newVerseHandler",
+          url: "http://ballfollower.pythonanywhere.com/ajax/newVerseHandler",
           contentType: "application/json;charset=utf-8",
-          data: JSON.stringify({ 
-            'parentId': $("#poemSoFar").data("lastVerseId"), 
+          data: JSON.stringify({
+            'parentId': $("#poemSoFar").data("lastVerseId"),
             'text': inputTrimmed
           }),
           dataType: "json",
@@ -38,7 +38,7 @@ $(function () {
       var txtValue = $(this).html();
 
       var matchedPosition = txtValue.indexOf(inputTrimmed);
-      
+
       if (matchedPosition < 0) {
         v.style.display = "none";
       } else {
@@ -47,7 +47,7 @@ $(function () {
         if (matchedPosition == 0) {// exact match possible
           if(txtValue.length == inputTrimmed.length){// this check should eliminate majority of cases
             if(txtValue == inputTrimmed){// final check
-              mainThis.data("identicalVerseId", $(this).data("id"));        
+              mainThis.data("identicalVerseId", $(this).data("id"));
             }
           }
         }
@@ -73,11 +73,11 @@ $(function () {
 // Adapted from: https://ourcodeworld.com/articles/read/189/how-to-create-a-file-and-generate-a-download-with-javascript-in-the-browser-without-a-server
 function downloadText(filename, text) {
   var element = $('<a></a>');
-  
+
   element.attr('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
   element.attr('download', filename);
   element.css('display', 'none');
-  
+
   $('body').append(element);
 
   element[0].click();
@@ -113,7 +113,7 @@ function fillVerseDivs(ajaxResponse){
 
 function acquireInitialVerses(){
   $.ajax({
-    url: "http://127.0.0.1:5000/ajax/initialVersesProvider",
+    url: "http://ballfollower.pythonanywhere.com/ajax/initialVersesProvider",
     contentType: "application/json;charset=utf-8",
     data: JSON.stringify({}),
     dataType: "json",
@@ -126,14 +126,14 @@ function acquireInitialVerses(){
     }
   });
 
-  $("#poemSoFar").data("lastVerseId", 0);
+  $("#poemSoFar").data("lastVerseId", null);
 }
 
 function postExistingVerse(id) {
   $("#poemSoFar").data("lastVerseId", id);
 
   $.ajax({
-    url: "http://127.0.0.1:5000/ajax/existingVerseHandler",
+    url: "http://ballfollower.pythonanywhere.com/ajax/existingVerseHandler",
     contentType: "application/json;charset=utf-8",
     data: JSON.stringify({ 'id': id }),
     dataType: "json",
