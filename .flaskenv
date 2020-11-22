@@ -1,2 +1,0 @@
-FLASK_APP=branched_poetry.py
-FLASK_ENV=development
