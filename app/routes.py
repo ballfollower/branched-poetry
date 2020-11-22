@@ -24,6 +24,10 @@ def index():
 def instruction():
     return render_template('instruction.html')
 
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
 def jsonifyVerses(verses):
     return jsonify({
         "ids":[verse.id for verse in verses],
@@ -32,7 +36,7 @@ def jsonifyVerses(verses):
 
 @app.route('/ajax/initialVersesProvider', methods=['POST'])
 def provideInitialVerses():
-    firstVerses = Verse.query.filter(Verse.parentId == None).all()
+    firstVerses = Verse.query.filter(Verse.parentId == 0).all()
 
     return jsonifyVerses(firstVerses)
 
@@ -41,7 +45,7 @@ def processExistingVerse():
     receivedVerseId = request.json['id']
 
     nextVerses = Verse.query.filter(Verse.parentId == receivedVerseId).all()
-
+  
     return jsonify({
         "ids":[verse.id for verse in nextVerses],
         "texts":[verse.text for verse in nextVerses]
@@ -60,5 +64,5 @@ def processNewVerse():
     idAssigned = newVerse.id
 
     db.session.commit()
-
+    
     return jsonify({'id': idAssigned})
