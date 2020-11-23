@@ -10,7 +10,7 @@ $(function () {
       }
       else{
         $.ajax({
-          url: "http://ballfollower.pythonanywhere.com/ajax/newVerseHandler",
+          url: "./ajax/newVerseHandler",
           contentType: "application/json;charset=utf-8",
           data: JSON.stringify({
             'parentId': $("#poemSoFar").data("lastVerseId"),
@@ -113,7 +113,7 @@ function fillVerseDivs(ajaxResponse){
 
 function acquireInitialVerses(){
   $.ajax({
-    url: "http://ballfollower.pythonanywhere.com/ajax/initialVersesProvider",
+    url: "./ajax/initialVersesProvider",
     contentType: "application/json;charset=utf-8",
     data: JSON.stringify({}),
     dataType: "json",
@@ -133,7 +133,7 @@ function postExistingVerse(id) {
   $("#poemSoFar").data("lastVerseId", id);
 
   $.ajax({
-    url: "http://ballfollower.pythonanywhere.com/ajax/existingVerseHandler",
+    url: "./ajax/existingVerseHandler",
     contentType: "application/json;charset=utf-8",
     data: JSON.stringify({ 'id': id }),
     dataType: "json",
