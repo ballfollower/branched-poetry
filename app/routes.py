@@ -36,7 +36,7 @@ def jsonifyVerses(verses):
 
 @app.route('/ajax/initialVersesProvider', methods=['POST'])
 def provideInitialVerses():
-    firstVerses = Verse.query.filter(Verse.parentId == 0).all()
+    firstVerses = Verse.query.filter(Verse.parentId == None).all()
 
     return jsonifyVerses(firstVerses)
 
