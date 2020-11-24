@@ -1,5 +1,3 @@
-<!-- TODO: Extract common parts to creationDiv class -->
-
 {% extends 'base.html' %}
 
 {% block style %}
@@ -10,32 +8,33 @@
 
     table {
       width: 100%;
+      padding: 10px 0;
     }
 
     td {
-      padding: 5px;
       width: 50%;
+      padding: 0 12px;
     }
 
     .panelTitle {
       text-align: center;
-      height: 30px;
     }
 
     #inputDiv {
       height: 30px;
+      padding-bottom: 23px;
     }
 
     .creationDiv {
+      border: 1px solid var(--veryDark);
+      border-radius: var(--panelBorderRadius);
+
       color: var(--veryDark);
 
       overflow: auto;
     }
 
     #poemSoFar {
-      border: 1px solid var(--veryDark);
-      border-radius: var(--panelBorderRadius);
-
       text-align: center;
       vertical-align: middle;
 
@@ -43,14 +42,14 @@
       height: 226px;
 
       padding: 1em;
+
+      font-family: Snell Roundhand, cursive;
+      font-size: 13px;
     }
 
     #verseAdditionDiv {
-      border: 1px solid var(--veryDark);
-      border-radius: var(--panelBorderRadius);
-
-      max-height: 173px;
-      min-height: 173px;
+      max-height: 178px;
+      min-height: 178px;
 
       padding: 4px;
     }
@@ -59,11 +58,8 @@
       width: 100%;
     }
 
-    .verseToChoose{
-    }
-
     .verseToChoose:hover {
-      color: maroon;
+      color: hsl(0, 100%, 38%);
     }
 
     .centered {
@@ -74,6 +70,10 @@
       width:5px;
       height:auto;
       display:inline-block;
+    }
+
+    button{
+      margin-top: 4px;
     }
   </style>
 {% endblock %}
