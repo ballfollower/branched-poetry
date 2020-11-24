@@ -1,5 +1,3 @@
-<!-- TODO: Make contentDiv's height the same for all subpages -->
-
 <html>
 
 <head>
@@ -25,7 +23,7 @@
 
             --contentPadding: 7px;
 
-            --navHoverColour: yellow;
+            --navHoverColour: hsl(60, 100%, 80%);
         }
 
         body {
@@ -67,6 +65,9 @@
                 var(--canvaBorderRadius);
 
             width: 100%;
+            height: 337px;
+      
+            overflow: auto;
 
             background-color: var(--veryBright);
             color: black;
