@@ -1,7 +1,13 @@
+<!-- TODO: Extract common parts to creationDiv class -->
+
 {% extends 'base.html' %}
 
 {% block style %}
   <style>
+    #creationLink {
+      text-decoration-line: underline;
+    }
+
     table {
       border-radius: 0 0 var(--canvaBorderRadius)
         var(--canvaBorderRadius);

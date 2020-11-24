@@ -19,6 +19,8 @@
                 --panelBorderRadius: 8px;
 
                 --panelBorderThickness: 1px;
+
+                --navHoverColour: yellow;
             }
 
             body {
@@ -48,13 +50,14 @@
             }
 
             nav a {
-                margin: 0 10px;
+                display: inline-block;
+                padding: 3px 10px;
                 text-decoration: none;
                 color: white;
             }
 
             nav a:hover {
-                color: maroon;
+                color: var(--navHoverColour);
             }
         </style>
 
@@ -70,9 +73,9 @@
                 </h1>
             </div>
             <nav>
-                <a href="{{ url_for('instruction') }}">instruction</a>
-                <a href="{{ url_for('index') }}">creation</a>
-                <a href="{{ url_for('contact') }}">contact</a>
+                <a href="{{ url_for('instruction') }}" id="instructionLink">instruction</a>
+                <a href="{{ url_for('index') }}" id="creationLink">creation</a>
+                <a href="{{ url_for('contact') }}" id="contactLink">contact</a>
             </nav>
             
             {% block content %}{% endblock %}
