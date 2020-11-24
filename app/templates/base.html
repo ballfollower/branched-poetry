@@ -74,15 +74,7 @@
                 <a href="{{ url_for('index') }}">creation</a>
                 <a href="{{ url_for('contact') }}">contact</a>
             </nav>
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <ul>
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-            {% endwith %}
+            
             {% block content %}{% endblock %}
         </div>
     </body>
