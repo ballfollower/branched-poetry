@@ -5,12 +5,24 @@
     #instructionLink {
       text-decoration-line: underline;
     }
+
+    .warningText {
+      color: red;
+    }
+
+    .warningBox {
+      border: 1px solid red;
+      border-radius: var(--panelBorderRadius);
+
+      padding: 5px;
+    }
   </style>
 {% endblock %}
 
 {% block content %}
 
-<div class="warning">
+<span class="warningText">Warning</span><br>
+<div class="warningBox">
   I do not guarantee this site will exist any particular amount of time. (Its main purpose is to demonstrate my skills in web development.) If you care to preserve your work, please make a copy.
 </div>
 

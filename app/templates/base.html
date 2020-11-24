@@ -1,84 +1,101 @@
 <html>
-    <head>
-        <meta charset="utf-8">
 
-        {% if title %}
-        <title>{{ title }} - branched poetry</title>
-        {% else %}
-        <title>branched poetry</title>
-        {% endif %}
+<head>
+    <meta charset="utf-8">
 
-        <style>
-            :root {
-                --veryDark: hsl(0, 81%, 15%);
-                --fairlyDark: hsl(0, 81%, 25%);
-                --fairlyBright: hsl(60, 100%, 80%);
-                --veryBright: hsl(60, 53%, 95%);
+    {% if title %}
+    <title>{{ title }} - branched poetry</title>
+    {% else %}
+    <title>branched poetry</title>
+    {% endif %}
 
-                --canvaBorderRadius: 8px;
-                --panelBorderRadius: 8px;
+    <style>
+        :root {
+            --veryDark: hsl(0, 81%, 15%);
+            --fairlyDark: hsl(0, 81%, 25%);
+            --fairlyBright: hsl(60, 100%, 80%);
+            --veryBright: hsl(60, 53%, 95%);
 
-                --panelBorderThickness: 1px;
+            --canvaBorderRadius: 8px;
+            --panelBorderRadius: 8px;
 
-                --navHoverColour: yellow;
-            }
+            --panelBorderThickness: 1px;
 
-            body {
-                background-color: hsl(24, 34%, 88%);
-                padding: 15px;
-            }
+            --contentPadding: 7px;
 
-            #canva {
+            --navHoverColour: yellow;
+        }
 
-            }
+        body {
+            background-color: hsl(24, 34%, 88%);
+            padding: 15px;
+        }
 
-            #titleDiv {
-                border-radius: var(--canvaBorderRadius)
-                    var(--canvaBorderRadius) 0 0;
+        #canva {}
 
-                background-color: var(--veryDark);
-                color: white;
-                padding: 10px;
-            }
+        #titleDiv {
+            border-radius: var(--canvaBorderRadius) var(--canvaBorderRadius) 0 0;
 
-            h1 {
-                margin: -3px 0;
-            }
+            background-color: var(--veryDark);
+            color: white;
+            padding: 10px;
+        }
 
-            nav {
-                background-color: var(--fairlyDark);
-            }
+        h1 {
+            margin: -3px 0;
+        }
 
-            nav a {
-                display: inline-block;
-                padding: 3px 10px;
-                text-decoration: none;
-                color: white;
-            }
+        nav {
+            background-color: var(--fairlyDark);
+        }
 
-            nav a:hover {
-                color: var(--navHoverColour);
-            }
-        </style>
+        nav a {
+            display: inline-block;
+            padding: 3px 10px;
+            text-decoration: none;
+            color: white;
+        }
 
-        {% block style %}{% endblock %}
+        nav a:hover {
+            color: var(--navHoverColour);
+        }
 
-        {% block script %}{% endblock %}
-    </head>
-    <body>
-        <div id="canva">
-            <div id="titleDiv">
-                <h1>
-                    Branched Poetry
-                </h1>
-            </div>
-            <nav>
-                <a href="{{ url_for('instruction') }}" id="instructionLink">instruction</a>
-                <a href="{{ url_for('index') }}" id="creationLink">creation</a>
-                <a href="{{ url_for('contact') }}" id="contactLink">contact</a>
-            </nav>
-            
+        #contentDiv {
+            border-radius: 0 0 var(--canvaBorderRadius)
+                var(--canvaBorderRadius);
+
+            width: 100%;
+
+            background-color: var(--veryBright);
+            color: black;
+
+            padding: var(--contentPadding);
+            box-sizing: border-box;
+        }
+    </style>
+
+    {% block style %}{% endblock %}
+
+    {% block script %}{% endblock %}
+</head>
+
+<body>
+    <div id="canva">
+        <div id="titleDiv">
+            <h1>
+                Branched Poetry
+            </h1>
+        </div>
+        <nav>
+            <a href="{{ url_for('instruction') }}" id="instructionLink">instruction</a>
+            <a href="{{ url_for('index') }}" id="creationLink">creation</a>
+            <a href="{{ url_for('contact') }}" id="contactLink">contact</a>
+        </nav>
+
+        <div id="contentDiv">
             {% block content %}{% endblock %}
         </div>
-    </body>
+    </div>
+</body>
+
 </html>
